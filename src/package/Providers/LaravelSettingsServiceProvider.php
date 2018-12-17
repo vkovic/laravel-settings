@@ -3,6 +3,8 @@
 namespace Vkovic\LaravelSettings\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Vkovic\LaravelMeta\MetaHandler;
+use Vkovic\LaravelSettings\Models\Meta;
 
 class LaravelSettingsServiceProvider extends ServiceProvider
 {
@@ -35,5 +37,12 @@ class LaravelSettingsServiceProvider extends ServiceProvider
             // Laravel app context
             return __DIR__ . '/../../../../../../vendor/' . ltrim($packageDir, '/');
         }
+    }
+
+    public function register()
+    {
+        $this->app->singleton('vkovic.laravel-settings', function () {
+            return new MetaHandler(new Meta);
+        });
     }
 }

@@ -59,4 +59,19 @@ class TestCase extends OrchestraTestCase
             'database' => ':memory:',
         ]);
     }
+
+    /**
+     * Resolve application aliases.
+     *
+     * @param \Illuminate\Foundation\Application $app
+     *
+     * @return array
+     */
+    protected function getPackageAliases($app)
+    {
+        return [
+            // Use facade like in Laravel application
+            'Settings' => \Vkovic\LaravelSettings\Facades\SettingsFacade::class
+        ];
+    }
 }

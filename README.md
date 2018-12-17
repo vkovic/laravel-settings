@@ -1,13 +1,13 @@
-# Laravel Meta
+# Laravel Settings
 
 [![Build](https://api.travis-ci.org/vkovic/laravel-settings.svg?branch=master)](https://travis-ci.org/vkovic/laravel-settings)
 [![Downloads](https://poser.pugx.org/vkovic/laravel-settings/downloads)](https://packagist.org/packages/vkovic/laravel-settings)
 [![Stable](https://poser.pugx.org/vkovic/laravel-settings/v/stable)](https://packagist.org/packages/vkovic/laravel-settings)
 [![License](https://poser.pugx.org/vkovic/laravel-settings/license)](https://packagist.org/packages/vkovic/laravel-settings)
 
-### Laravel meta storage for different purposes
+### Laravel settings storage
 
-Easily store and access all kind of metadata for your application in dedicated table.
+Global place to store app specific setting.
 
 ---
 
