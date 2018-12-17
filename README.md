@@ -11,9 +11,9 @@ If you want to save application specific settings and you dont want to create an
 this package is for you.
 
 > The package is one of three metadata packages based on the same approach:
-> - vkovic/laravel-settings (this one)
-> - [vkovic/laravel-meta](https://github.com/vkovic/laravel-meta)
-> - [vkovic/laravel-model-meta](https://github.com/vkovic/laravel-model-meta)
+> - vkovic/laravel-settings (this package - app specific settings meta storage)
+> - [vkovic/laravel-meta](https://github.com/vkovic/laravel-meta) (general purpose meta storage)
+> - [vkovic/laravel-model-meta](https://github.com/vkovic/laravel-model-meta) (Laravel model related meta storage)
 >
 > Packages can be used separately or together. Internally they are using same table and share common logic.
 
