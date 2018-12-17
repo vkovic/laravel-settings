@@ -3,7 +3,7 @@
 namespace Vkovic\LaravelSettings\Test\Unit;
 
 use Settings;
-use Vkovic\LaravelSettings\Models\Settings as SettingsModel;
+use Vkovic\LaravelSettings\Models\Meta as SettingsModel;
 use Vkovic\LaravelSettings\Test\TestCase;
 
 class SettingsFacadeTest extends TestCase

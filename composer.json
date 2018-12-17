@@ -1,6 +1,6 @@
 {
   "name": "vkovic/laravel-settings",
-  "description": "Custom settings storage for your Laravel application",
+  "description": "Neat way to handle app specific setting",
   "keywords": ["laravel", "settings"],
   "license": "MIT",
   "authors": [

@@ -5,9 +5,17 @@
 [![Stable](https://poser.pugx.org/vkovic/laravel-settings/v/stable)](https://packagist.org/packages/vkovic/laravel-settings)
 [![License](https://poser.pugx.org/vkovic/laravel-settings/license)](https://packagist.org/packages/vkovic/laravel-settings)
 
-### Laravel settings storage
+### Neat way to handle app specific settings
 
-Global place to store app specific setting.
+If you want to save application specific settings and you dont want to create another table/model/logic,
+this package is for you.
+
+> The package is one of three metadata packages based on the same approach:
+> - vkovic/laravel-settings (this one)
+> - [vkovic/laravel-meta](https://github.com/vkovic/laravel-meta)
+> - [vkovic/laravel-model-meta](https://github.com/vkovic/laravel-model-meta)
+>
+> Packages can be used separately or together. Internally they are using same table and share common logic.
 
 ---
 
@@ -44,15 +52,15 @@ The package needs to be registered in service providers, so just add it to provi
 ];
 ```
 
-Run migrations to create table which will be used to store our metadata:
+Run migrations to create table which will be used to store our settings:
 
 ```bash
 php artisan migrate
 ```
 
-### With facade
+### Facade
 
-If you want to use facade (e.g. `Meta::set('foo', 'bar')`) for more intuitive coding, no problem, just register facade in app config file:
+Register facade in app config file:
 
 ```php
 // File: config/app.php
@@ -63,106 +71,28 @@ If you want to use facade (e.g. `Meta::set('foo', 'bar')`) for more intuitive co
 
     // ...
 
-    'Meta' => \Vkovic\LaravelSettings\Facades\MetaFacade::class,
+    'Settings' => \Vkovic\LaravelSettings\Facades\SettingsFacade::class,
 ]
 ```
 
-### Without facade
+## Usage: Basics
 
-If however you don't want to use facade you can still use this package with provided meta handler class.
-In this case you do not need to register facade but you need to include `MetaHandler` class.
-
-```php
-use Vkovic\LaravelSettings\MetaHandler;
-
-// ...
-
-$meta = new MetaHandler;
-$meta->set('foo', 'bar');
-```
-
-## Usage: Simple Examples
-
-In examples below we will use facade approach.
-
-Let's create and retrieve some metadata:
+Let's create and retrieve some settings:
 
 ```php
-// Set meta value as string
-Meta::set('foo', 'bar');
+// Set setting value as string
+Settings::set('foo', 'bar');
 
-// Get meta value
-Meta::get('foo')) // : 'bar'
+// Get setting value
+Settings::get('foo')) // : 'bar'
 
-// In case there is no metadata found for given key,
+// In case there is no settings found for given key,
 // we can pass default value to return
-Meta::get('baz', 'default'); // : 'default'
+Settings::get('baz', 'default'); // : 'default'
 ```
 
-Beside string, metadata can also be stored as integer, float, null, boolean or array:
-
-```php
-Meta::set('age', 35);
-Meta::set('temperature', 24.7);
-Meta::set('value', null);
-Meta::set('employed', true);
-Meta::set('fruits', ['orange', 'apple']);
-
-Meta::get('age')) // : 35
-Meta::get('temperature')) // : 24.7
-Meta::get('value', null); // : null
-Meta::get('employed'); // : true
-Meta::get('fruits', ['orange', 'apple']); // : ['orange', 'apple']
-```
-
-We can easily check if meta exists without actually retrieving it from meta table:
-
-```php
-Meta::set('foo', 'bar');
-
-Meta::exists('foo'); // : true
-```
-
-Counting all meta records is also a breeze:
-
-```php
-Meta::set('a', 'one');
-Meta::set('b', 'two');
-
-Meta::count(); // : 2
-```
-
-If we need all metadata, or just keys, no problem:
-
-```php
-Meta::set('a', 'one');
-Meta::set('b', 'two');
-Meta::set('c', 'three');
-
-// Get all metadata
-Meta::all(); // : ['a' => 'one', 'b' => 'two', 'c' => 'three']
-
-// Get only keys
-Meta::keys(); // : [0 => 'a', 1 => 'b', 2 => 'c']
-```
-
-Also, we can remove meta easily:
-
-```php
-Meta::set('a', 'one');
-Meta::set('b', 'two');
-Meta::set('c', 'three');
-
-// Remove meta by key
-Meta::remove('a');
-
-// Or array of keys
-Meta::remove(['b', 'c']);
-```
-
-If, for some reason, we want to delete all meta at once, no problem:
-
-```php
-// This will delete all metadata from our meta table!
-Meta::purge();
-```
+This is a very basic way of using laravel-settings package.
+This package is actually extension to
+[vkovic/laravel-meta](https://github.com/vkovic/laravel-meta)
+and it's uses the same logic, so you can
+[check further usage examples there](https://github.com/vkovic/laravel-meta#usage-simple-examples).
