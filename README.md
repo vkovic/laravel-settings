@@ -5,10 +5,11 @@
 [![Stable](https://poser.pugx.org/vkovic/laravel-settings/v/stable)](https://packagist.org/packages/vkovic/laravel-settings)
 [![License](https://poser.pugx.org/vkovic/laravel-settings/license)](https://packagist.org/packages/vkovic/laravel-settings)
 
-### Neat way to handle app specific settings
+### Persistent application settings storage
 
-If you want to save application specific settings and you dont want to create another table/model/logic,
-this package is for you.
+If you want to save application specific settings and you don't want to create another table/model/logic,
+this package is just for you. It utilizes underlying [vkovic/laravel-meta](https://github.com/vkovic/laravel-meta)
+package and it's logic to store settings data in the `meta` table.
 
 > The package is one of three metadata packages based on the same approach:
 > - vkovic/laravel-settings (this package - app specific settings meta storage)
@@ -75,7 +76,7 @@ Register facade in app config file:
 ]
 ```
 
-## Usage: Basics
+## Usage: Simple Examples
 
 Let's create and retrieve some settings:
 
@@ -91,8 +92,70 @@ Settings::get('foo')) // : 'bar'
 Settings::get('baz', 'default'); // : 'default'
 ```
 
-This is a very basic way of using laravel-settings package.
-This package is actually extension to
-[vkovic/laravel-meta](https://github.com/vkovic/laravel-meta)
-and it's uses the same logic, so you can
-[check further usage examples there](https://github.com/vkovic/laravel-meta#usage-simple-examples).
+Beside string, settings can also be stored as integer, float, null, boolean or array:
+
+```php
+Settings::set('age', 35);
+Settings::set('temperature', 24.7);
+Settings::set('value', null);
+Settings::set('employed', true);
+Settings::set('fruits', ['orange', 'apple']);
+
+Settings::get('age')) // : 35
+Settings::get('temperature')) // : 24.7
+Settings::get('value', null); // : null
+Settings::get('employed'); // : true
+Settings::get('fruits', ['orange', 'apple']); // : ['orange', 'apple']
+```
+
+We can easily check if settings exists without actually retrieving it from our table:
+
+```php
+Settings::set('foo', 'bar');
+
+Settings::exists('foo'); // : true
+```
+
+Counting all settings records is also a breeze:
+
+```php
+Settings::set('a', 'one');
+Settings::set('b', 'two');
+
+Settings::count(); // : 2
+```
+
+If we need all settings, or just keys, no problem:
+
+```php
+Settings::set('a', 'one');
+Settings::set('b', 'two');
+Settings::set('c', 'three');
+
+// Get all settings
+Settings::all(); // : ['a' => 'one', 'b' => 'two', 'c' => 'three']
+
+// Get only keys
+Settings::keys(); // : [0 => 'a', 1 => 'b', 2 => 'c']
+```
+
+Also, we can remove settings easily:
+
+```php
+Settings::set('a', 'one');
+Settings::set('b', 'two');
+Settings::set('c', 'three');
+
+// Remove settings by key
+Settings::remove('a');
+
+// Or array of keys
+Settings::remove(['b', 'c']);
+```
+
+If, for some reason, we want to delete all settings at once, no problem:
+
+```php
+// This will delete all settings!
+Settings::purge();
+```
