@@ -66,6 +66,23 @@ class SettingsFacadeTest extends TestCase
      * @test
      * @dataProvider keyValueTypeProvider
      */
+    public function it_can_query_settings($key, $value)
+    {
+        Settings::set($key, $value);
+
+        $keyStart = substr($key, 0, 10);
+        $keyMiddle = substr($key, 4, 8);
+        $keyEnd = substr($key, 8, 15);
+
+        $this->assertEquals(Settings::query("$keyStart*")[$key], $value);
+        $this->assertEquals(Settings::query("*$keyMiddle*")[$key], $value);
+        $this->assertEquals(Settings::query("*$keyEnd")[$key], $value);
+    }
+
+    /**
+     * @test
+     * @dataProvider keyValueTypeProvider
+     */
     public function it_can_update_settings($key, $value)
     {
         $newValue = str_random();
