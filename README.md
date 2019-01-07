@@ -92,6 +92,39 @@ Settings::get('foo')) // : 'bar'
 Settings::get('baz', 'default'); // : 'default'
 ```
 
+Multiple records could be retrieved using `query` method and wildcard `*`:
+
+```php
+Settings::set('computer.display.resolution', '1280x1024');
+Settings::set('computer.display.brightness', 97);
+Settings::set('computer.sound.volume', 54);
+Settings::set('computer.mic.volume', 0);
+
+Settings::query('computer.display.*');
+// Result:
+// [
+//     'computer.display.resolution' => '1280x1024',
+//     'computer.display.brightness' => 97
+// ]
+
+Settings::query('*.sound.*');
+// Result:
+// [
+//     'computer.sound.volume' => 54
+// ]
+
+Settings::query('computer.*.volume');
+// Result:
+// [
+//     'computer.sound.volume' => 54,
+//     'computer.mic.volume' => 0
+// ]
+
+// In case there is no settings found for given query,
+// we can pass default value to return
+Settings::query('computer.sound.bass', 85); // : 85
+```
+
 Beside string, settings can also be stored as integer, float, null, boolean or array:
 
 ```php
