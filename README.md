@@ -136,9 +136,9 @@ Settings::set('fruits', ['orange', 'apple']);
 
 Settings::get('age')) // : 35
 Settings::get('temperature')) // : 24.7
-Settings::get('value', null); // : null
+Settings::get('value'); // : null
 Settings::get('employed'); // : true
-Settings::get('fruits', ['orange', 'apple']); // : ['orange', 'apple']
+Settings::get('fruits'); // : ['orange', 'apple']
 ```
 
 We can easily check if settings exists without actually retrieving it from our table:
