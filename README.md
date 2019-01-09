@@ -134,8 +134,8 @@ Settings::set('value', null);
 Settings::set('employed', true);
 Settings::set('fruits', ['orange', 'apple']);
 
-Settings::get('age')) // : 35
-Settings::get('temperature')) // : 24.7
+Settings::get('age'); // : 35
+Settings::get('temperature'); // : 24.7
 Settings::get('value'); // : null
 Settings::get('employed'); // : true
 Settings::get('fruits'); // : ['orange', 'apple']
