@@ -5,18 +5,10 @@
 [![Stable](https://poser.pugx.org/vkovic/laravel-settings/v/stable)](https://packagist.org/packages/vkovic/laravel-settings)
 [![License](https://poser.pugx.org/vkovic/laravel-settings/license)](https://packagist.org/packages/vkovic/laravel-settings)
 
-### Persistent application settings storage
+### Persist application settings in database easily
 
 If you want to save application specific settings and you don't want to create another table/model/logic,
-this package is just for you. It utilizes underlying [vkovic/laravel-meta](https://github.com/vkovic/laravel-meta)
-package and it's logic to store settings data in the `meta` table.
-
-> The package is one of three metadata packages based on the same approach:
-> - vkovic/laravel-settings (this package - app specific settings meta storage)
-> - [vkovic/laravel-meta](https://github.com/vkovic/laravel-meta) (general purpose meta storage)
-> - [vkovic/laravel-model-meta](https://github.com/vkovic/laravel-model-meta) (Laravel model related meta storage)
->
-> Packages can be used separately or together. Internally they are using same table and share common logic.
+this package is for you.
 
 ---
 
@@ -32,51 +24,13 @@ Install the package via composer:
 composer require vkovic/laravel-settings
 ```
 
-The package needs to be registered in service providers, so just add it to providers array:
-
-```php
-// File: config/app.php
-
-// ...
-
-'providers' => [
-
-    /*
-     * Package Service Providers...
-     */
-
-    // ...
-
-    Vkovic\LaravelSettings\Providers\LaravelSettingsServiceProvider::class,
-
-    // ...
-];
-```
-
 Run migrations to create table which will be used to store our settings:
 
 ```bash
 php artisan migrate
 ```
 
-### Facade
-
-Register facade in app config file:
-
-```php
-// File: config/app.php
-
-// ...
-
-'aliases' => [
-
-    // ...
-
-    'Settings' => \Vkovic\LaravelSettings\Facades\SettingsFacade::class,
-]
-```
-
-## Usage: Simple Examples
+## Usage
 
 Let's create and retrieve some settings:
 
@@ -85,7 +39,7 @@ Let's create and retrieve some settings:
 Settings::set('foo', 'bar');
 
 // Get setting value
-Settings::get('foo')) // : 'bar'
+Settings::get('foo'); // : 'bar'
 
 // In case there is no settings found for given key,
 // we can pass default value to return
@@ -136,7 +90,7 @@ Settings::set('fruits', ['orange', 'apple']);
 
 Settings::get('age'); // : 35
 Settings::get('temperature'); // : 24.7
-Settings::get('value'); // : null
+Settings::get('value', null); // : null
 Settings::get('employed'); // : true
 Settings::get('fruits'); // : ['orange', 'apple']
 ```
@@ -191,4 +145,23 @@ If, for some reason, we want to delete all settings at once, no problem:
 ```php
 // This will delete all settings!
 Settings::purge();
+```
+
+---
+
+## Contributing
+
+If you plan to modify this Laravel package you should run tests that comes with it.
+Easiest way to accomplish this would be with `Docker`, `docker-compose` and `phpunit`.
+
+First, we need to initialize Docker containers:
+
+```bash
+docker-compose up -d
+```
+
+After that, we can run tests and watch the output:
+
+```bash
+docker-compose exec app vendor/bin/phpunit
 ```
